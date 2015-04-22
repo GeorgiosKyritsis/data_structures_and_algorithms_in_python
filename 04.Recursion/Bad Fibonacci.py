@@ -1,6 +1,5 @@
 __author__ = 'inamoto21'
 
-
 import unittest
 
 
