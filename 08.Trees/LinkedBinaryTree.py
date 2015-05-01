@@ -248,6 +248,29 @@ class LinkedBinaryTree(BinaryTree):
             t2._root = None
             t2._size = 0
 
+    def __iter__(self):
+        """Generate an iteration on the tree's elements"""
+        for p in self.positions():
+            yield p.element()
+
+    def preorder(self):
+        """Generate a preorder iteration of positions in the tree"""
+        if not self.is_empty():
+            for p in self._subtree_preorder(self.root()):
+                yield p
+
+    def _subtree_preorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p."""
+        yield p
+        for c in self.children(p):
+            for other in self._subtree_preorder(c):
+                yield other
+
+    def positions(self):
+        """Generate an iteration of tree's position"""
+        return self.preorder()
+
+
     # ----------------user interface for binary search tree----------------
     def add_element(self, e, p=-1):
         if self.is_empty():
@@ -267,13 +290,6 @@ class LinkedBinaryTree(BinaryTree):
                 else:
                     self.add_element(e, self.right(p))
 
-    def printTree(self, p=None):            # Pre-order Traversal
-        if p is None:
-            p = self.root()
-        print(p.element())
-        for c in self.children(p):
-            self.printTree(c)
-
 if __name__ == '__main__':
     s = LinkedBinaryTree()
     s.add_element(10)
@@ -283,5 +299,7 @@ if __name__ == '__main__':
     s.add_element(4)
     s.add_element(5)
     s.add_element(2)
-    s.printTree()
     assert len(s) == 7
+
+    for e in s:
+        print(e)
