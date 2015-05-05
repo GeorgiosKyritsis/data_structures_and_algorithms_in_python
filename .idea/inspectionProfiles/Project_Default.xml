@@ -13,6 +13,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="Stack" />
+          <option value="MapBase" />
         </list>
       </option>
     </inspection_tool>
